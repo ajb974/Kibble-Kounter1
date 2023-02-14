@@ -1,12 +1,13 @@
 from time import sleep
 from picamera import PiCamera
 
+camera = PiCamera()
+
 def info():  
     '''Prints a basic library description'''
     print("Software library for the KibbleKounter project.")
 
 def setupCamera():
-    camera = PiCamera()
     camera.resolution = (2592, 1944)
     camera.framerate = 15
 
