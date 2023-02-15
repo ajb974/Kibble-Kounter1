@@ -1,8 +1,15 @@
 from time import sleep
 from picamera import PiCamera
+from hx711 import HX711		# import the class HX711
+import RPi.GPIO as GPIO		# import GPIO
+import time
 
 camera = PiCamera()
 
+DataPin = 23
+ClockPin = 24
+NumReadings = 10
+hx = HX711(dout_pin=DataPin, pd_sck_pin=ClockPin, gain=128, channel='A')
 def info():  
     '''Prints a basic library description'''
     print("Software library for the KibbleKounter project.")
@@ -25,3 +32,10 @@ def takePicture():
     #stops camera input
     camera.stop_preview()
     print("A picture was taken.")
+def resetScale():
+    result = hx.reset()	
+def readScale():
+    resetScale()
+    data = hx.get_raw_data(NumReadings)
+    return data #returns list of readings
+
