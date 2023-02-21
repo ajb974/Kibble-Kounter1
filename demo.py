@@ -1,5 +1,6 @@
 import KibbleKounter
 import time
 
-fname= KibbleKounter.takePicture('picture1')
+camera = KibbleKounter.setupCamera()
+fname= KibbleKounter.takePicture(camera,'picture1')
 print (fname) 
