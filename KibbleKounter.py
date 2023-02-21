@@ -4,7 +4,7 @@ from hx711 import HX711		# import the class HX711
 import RPi.GPIO as GPIO		# import GPIO
 import time
 
-camera = PiCamera()
+camera = None
 
 DataPin = 23
 ClockPin = 24
@@ -16,22 +16,24 @@ def info():
 
 def setupCamera():
     #Sets up Camera
+    camera = PiCamera()
     #Sets resolutions of camera to highest resolution
     camera.resolution = (2592, 1944)
     #Sets framerate to support highest resolution
     camera.framerate = 15
+    return camera
 
-def takePicture():
+def takePicture(filename):
     #takes a still (image) using camera
+    camera=setupCamera()
     #starts live display of cameras input
     camera.start_preview()
-    #delay of 5 seconds
-    sleep(5)
     #captures the still and saves it to desktop
-    campera.capture('/home/pi/Desktop/piimage.jpg')
+    campera.capture('/home/pi/Desktop/%s.jpg' % filename)
     #stops camera input
     camera.stop_preview()
-    print("A picture was taken.")
+    return ('/home/pi/Desktop/%s.jpg' % filename) 
+
 def resetScale():
     result = hx.reset()	
 def readScale():
