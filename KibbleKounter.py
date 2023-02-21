@@ -29,7 +29,7 @@ def takePicture(filename):
     #starts live display of cameras input
     camera.start_preview()
     #captures the still and saves it to desktop
-    campera.capture('/home/pi/Desktop/%s.jpg' % filename)
+    camera.capture('/home/pi/Desktop/%s.jpg' % filename)
     #stops camera input
     camera.stop_preview()
     return ('/home/pi/Desktop/%s.jpg' % filename) 
