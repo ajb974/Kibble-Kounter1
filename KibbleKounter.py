@@ -23,9 +23,8 @@ def setupCamera():
     camera.framerate = 15
     return camera
 
-def takePicture(filename):
+def takePicture(camera, filename):
     #takes a still (image) using camera
-    camera=setupCamera()
     #starts live display of cameras input
     camera.start_preview()
     #captures the still and saves it to desktop
