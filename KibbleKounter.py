@@ -3,13 +3,17 @@ from picamera import PiCamera
 from hx711 import HX711		# import the class HX711
 import RPi.GPIO as GPIO		# import GPIO
 import time
+import statistics
 
 camera = None
 
 DataPin = 23
 ClockPin = 24
 NumReadings = 10
-hx = HX711(dout_pin=DataPin, pd_sck_pin=ClockPin, gain=128, channel='A')
+hx = None
+ZeroValue=None
+TestValue=None #difference in scale value after weight is put on
+TestWeight=100 #grams
 def info():  
     '''Prints a basic library description'''
     print("Software library for the KibbleKounter project.")
@@ -35,8 +39,28 @@ def takePicture(camera, filename):
 
 def resetScale():
     result = hx.reset()	
-def readScale():
-    resetScale()
+    if result:			# check if the reset was successful
+        print('Ready to use')
+    else:
+        print('not ready')
+def readScale_raw():
+    #resetScale()
     data = hx.get_raw_data(NumReadings)
     return data #returns list of readings
-
+def zeroScale():
+    global hx,ZeroValue
+    hx=HX711(dout_pin=DataPin, pd_sck_pin=ClockPin, gain=128, channel='A')
+    resetScale()
+    data = readScale_raw()
+    ZeroValue=statistics.median(data) #take median of list of readings
+def TestScale():
+    global TestValue
+    data=readScale_raw()
+    TestValue=statistics.median(data)-ZeroValue #differnce between scale with weight and zero
+def readScale_grams():
+    data=readScale_raw()
+    ScaleValue=statistics.median(data) #raw scale value
+    ScaleDiff=ScaleValue-ZeroValue #difference between zero and current
+    ScaleGrams=(ScaleDiff/TestValue)*TestWeight #convert to grams
+    print("ScaleDiff "+str(ScaleDiff))
+    return ScaleGrams
