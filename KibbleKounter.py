@@ -6,7 +6,6 @@ import time
 import statistics
 
 camera = None
-
 DataPin = 23
 ClockPin = 24
 NumReadings = 10
@@ -14,9 +13,46 @@ hx = None
 ZeroValue=None
 TestValue=None #difference in scale value after weight is put on
 TestWeight=100 #grams
+
+
+GPIO_TRIGGER = 17
+GPIO_ECHO = 24
+
+
 def info():  
     '''Prints a basic library description'''
     print("Software library for the KibbleKounter project.")
+
+def setupProximitySensor():
+  GPIO.setmode(GPIO.BCM)
+  GPIO.setup(GPIO_TRIGGER, GPIO.OUT)
+  GPIO.setup(GPIO_ECHO, GPIO.IN)
+  return True
+
+def measureDistance():
+  #set trigger to HIGH
+  GPIO.setmode(GPIO.BCM)
+  setupProximitySensor()
+  GPIO.output(GPIO_TRIGGER, True)
+
+  #set trigger after 0.01 ms to LOW
+  time.sleep(0.00001)
+  GPIO.output(GPIO_TRIGGER, False)
+
+  StartTime = time.time()
+  StopTime = time.time()
+
+  #save StartTime
+  while GPIO.input(GPIO_ECHO) == 0:
+   StartTime = time.time()
+
+  while GPIO.input(GPIO_ECHO) == 1:
+   StopTime = time.time()
+
+  #time difference between start and arrival
+  TimeElapsed = StopTime - StartTime
+  distance = (TimeElapsed * 34300) / 2 #in cm
+  return distance
 
 def setupCamera():
     #Sets up Camera

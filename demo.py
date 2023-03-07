@@ -21,7 +21,16 @@ try:
 except Exception:
     traceback.print_exc()
 
-try: 
+try:
+   while True:
+    dist = measureDistance()
+    print("Measured Distance = %.1f cm" % dist)
+    time.sleep(1)
+except Exception:
+    traceback.print_exc()
+
+
+try:
     spi=spidev.SpiDev()
     spi.open(0,0)
     spi.max_speed_hz = 100000
