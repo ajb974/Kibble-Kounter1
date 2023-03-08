@@ -16,7 +16,7 @@ TestWeight=100 #grams
 
 
 GPIO_TRIGGER = 17
-GPIO_ECHO = 24
+GPIO_ECHO = 18
 
 
 def info():  

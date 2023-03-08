@@ -23,7 +23,7 @@ except Exception:
 
 try:
    while True:
-    dist = measureDistance()
+    dist = KibbleKounter.measureDistance()
     print("Measured Distance = %.1f cm" % dist)
     time.sleep(1)
 except Exception:
