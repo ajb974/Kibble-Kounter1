@@ -33,7 +33,11 @@ def first_setup():
     with open(DATA_FILE, 'w', newline='') as file:
         writer = csv.writer(file)
         field = ["water_percent", "weight_percent", "time"]
-
+        writer.writerow(field)
+    with open(PREDICTION_FILE, 'w', newline='') as file:
+        writer = csv.writer(file)
+        field = ["name", "id", "time"]
+        writer.writerow(field)
 def camera_training(folder_name, done):
     global file_number
     if not done:
@@ -101,11 +105,13 @@ def save_reading():
 
 def camera_prediction():
      event_camera.wait()
+     now=datetime.now()
+     dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
      cap = kk.takePicture(camera, "prediction")
      -, img = cap.read()
      res,name = tm.predict(img)
      idx = np.argmax(res)
      with open(PREDICTION_FILE, 'a', newline='') as file:
         writer = csv.write(file)
-        writer.writerow([str(name), str(idx)])
+        writer.writerow([str(name), str(idx),dt_string])
      event_camera.clear()
