@@ -4,7 +4,9 @@ from queue import Queue
 import time
 import datetime
 import csv
+from teachablemachinepython import tmlib
 from  tmblib import *
+import cv2
 import numpy as np
 import os
 
@@ -27,7 +29,7 @@ camera = kk.setupCamera()
 file_number = 0
 
 tm = TeachableMachineTF()
-tm.load('/home/pi/Kibble-Kounter1/teachablemachine-python/tflite_model/model_unquant.tfile','/home/pi/teachablemachine-python/tflite_model/labels.txt')
+tm.load('/home/pi/Kibble-Kounter1/teachablemachinepython/tflite_model/model_unquant.tfile','/home/pi/Kibble-Kounter1/teachablemachinepython/tflite_model/labels.txt')
 
 #function for making folders to store pictures in (e.g. for camera_training)
 def make_folder(folder_name):
@@ -113,7 +115,7 @@ def camera_prediction():
      event_camera.wait()
      now=datetime.now()
      dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-     cap = kk.takePicture(camera, "prediction")
+     cap = cv2.VideoCapture(0)
      -, img = cap.read()
      res,name = tm.predict(img)
      idx = np.argmax(res)
