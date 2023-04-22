@@ -6,6 +6,7 @@ import datetime
 import csv
 from  tmblib import *
 import numpy as np
+import os
 
 TOL_WATER=5
 TOL_FOOD=10 #tolerance for food and water to trigger change
@@ -28,6 +29,10 @@ file_number = 0
 tm = TeachableMachineTF()
 tm.load('/home/pi/Kibble-Kounter1/teachablemachine-python/tflite_model/model_unquant.tfile','/home/pi/teachablemachine-python/tflite_model/labels.txt')
 
+#function for making folders to store pictures in (e.g. for camera_training)
+def make_folder(folder_name):
+   os.mkdir('/home/pi/Desktop/%s' % folder_name)
+
 
 def first_setup():
     with open(DATA_FILE, 'w', newline='') as file:
@@ -38,9 +43,10 @@ def first_setup():
         writer = csv.writer(file)
         field = ["name", "id", "time"]
         writer.writerow(field)
+
 def camera_training(folder_name, done):
     global file_number
-    if not done:
+    if done == False:
       file_name = folder_name+"/"+folder_name+str(file_number)
       kk.takePicture(camera, file_name)
       file_number+=1
