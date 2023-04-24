@@ -4,16 +4,14 @@ from queue import Queue
 import time
 import datetime
 import csv
-from teachablemachinepython import tmlib
-from  tmblib import *
-import cv2
+#from teachablemachinepython import tmlib
+#from  tmblib import *
+#import cv2
 import numpy as np
 import os
 
 TOL_WATER=5
 TOL_FOOD=10 #tolerance for food and water to trigger change
-DATA_FILE="data.csv"
-PREDICTION_FILE="prediction.csv"
 empty_water_bowl=None
 #curr_water_bowl=None
 full_water_bowl=None
@@ -23,27 +21,23 @@ full_food_bowl=None
 queue_water=Queue()
 queue_weight=Queue()
 
-event_camera = Event()
 
 camera = kk.setupCamera()
 file_number = 0
 
-tm = TeachableMachineTF()
-tm.load('/home/pi/Kibble-Kounter1/teachablemachinepython/tflite_model/model_unquant.tfile','/home/pi/Kibble-Kounter1/teachablemachinepython/tflite_model/labels.txt')
+#tm = TeachableMachineTF()
+#tm.load('/home/pi/Kibble-Kounter1/teachablemachinepython/tflite_model/model_unquant.tfile','/home/pi/Kibble-Kounter1/teachablemachinepython/tflite_model/labels.txt')
 
 #function for making folders to store pictures in (e.g. for camera_training)
 def make_folder(folder_name):
    os.mkdir('/home/pi/Desktop/%s' % folder_name)
 
 
-def first_setup():
+def first_setup(DATA_FILE):
     with open(DATA_FILE, 'w', newline='') as file:
         writer = csv.writer(file)
         field = ["water_percent", "weight_percent", "time"]
-        writer.writerow(field)
-    with open(PREDICTION_FILE, 'w', newline='') as file:
-        writer = csv.writer(file)
-        field = ["name", "id", "time"]
+        #field = ["water_precent", "weight_precent", "predicted_name", "predicted_idx", "time"]
         writer.writerow(field)
 
 def camera_training(folder_name, done):
@@ -107,19 +101,17 @@ def save_reading():
                 dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
                 curr_water_percent=(full_water_bowl/curr_water_bowl)*100
                 curr_food_percent=(full_food_bowl/curr_food_bowl)*100
+                #curr_prediction = camera_prediction()
                 with open(DATA_FILE, 'a', newline='') as file:
                     writer = csv.writer(file)
                     writer.writerow([str(curr_water_percent), str(curr_food_percent), dt_string])
-
+                    #writer.writerow([str(cur_water_present), str(curr_food_present), curr_prediction[0], curr_prediction[1], dt_string])
+'''
 def camera_prediction():
-     event_camera.wait()
-     now=datetime.now()
-     dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
      cap = cv2.VideoCapture(0)
-     -, img = cap.read()
+     _, img = cap.read()
      res,name = tm.predict(img)
      idx = np.argmax(res)
-     with open(PREDICTION_FILE, 'a', newline='') as file:
-        writer = csv.write(file)
-        writer.writerow([str(name), str(idx),dt_string])
-     event_camera.clear()
+     s = [name, str(idx)]
+     return s
+'''
