@@ -30,7 +30,7 @@ file_number = 0
 
 #function for making folders to store pictures in (e.g. for camera_training)
 def make_folder(folder_name):
-   os.mkdir('/home/pi/Desktop/%s' % folder_name)
+   os.mkdir('/home/pi/Desktop/pictures/%s' % folder_name)
 
 
 def first_setup(DATA_FILE):
@@ -43,12 +43,11 @@ def first_setup(DATA_FILE):
 def camera_training(folder_name, done):
     global file_number
     if done == False:
-      file_name = folder_name+"/"+folder_name+str(file_number)
+      file_name = "pictures/"+folder_name+"/"+folder_name+str(file_number)
       kk.takePicture(camera, file_name)
       file_number+=1
     else:
       file_number=0
-      return('/home/pi/Desktop/%s' % folder_name)
 
 
 def zero_sensors():
