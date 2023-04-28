@@ -1,4 +1,8 @@
-from flask import Flask, render_template, redirect,request 
+from flask import Flask, render_template, redirect,request, send_file
+from glob import glob
+from io import BytesIO
+from zipfile import ZipFile
+import os
 import app_weight
 from csv import csv,DictReader
 from datetime import time,date, datetime, timedelta
@@ -37,6 +41,7 @@ def add_pet():
         return redirect("/home")
     return render_template("addpet.html")
 
+#function for taking photos
 @app.route("/takephotos", methods=['POST','GET'])
 def take_photos():
     if request.method=="GET":
@@ -51,9 +56,35 @@ def take_photos():
             app_weight.camera_training(petname, False)
             time.sleep(2)
         app_weight.camera_training(petname, True)
-            
+
+#function for downloading photos
+@app.route("/download")
+def download():
+    target = '/home/pi/Desktop/Pictures'
+    stream = BytesIO()
+    with ZipFile(stream, "w") as zf:
+        for file in glob(os.path.join(target, '*.sql')):
+            zf.write(file, os.path.basename(file))
+            stream.seek(0)
+    return send_file(stream, as_attachment=True, downloaded_name='pictures.zip')
+
+
+app.config["UPLOAD_FOLDER"] = '/home/pi/Kibble-Kounter1/teachablemachinepython/tflite_model/'
 
 #function for facial recognition
+@app.route("/facialrecognition", methods=['POST','GET'])
+def facial_recognition():
+    if request.method=="GET":
+        with open(petlist, 'r') as f:
+            dict_reader = DictReader(f)
+            tuple_of_dict = tuple(dict_reader)
+        return render_template("facialrecognition.html", myPets=tuple_of_dict)
+    if request.method=="POST":
+        files=request.files.getlist['file']
+        for file in files:
+            filename = file.secure_filename(file.filename)
+            file.save(app.config['UPLOAD_FOLDER']+filename)
+        return redirect("/home")
 
 #recieves pets name, makes file to collect information for the pets bowl in and zeroes the sensors for that pets bowl
 @app.route("/startsetup", methods=['POST', 'GET'])
