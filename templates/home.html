@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Kibble Kounter</title>
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+</head>
+
+<body>
+    <h1>Kibble Kounter</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12"><a class="btn btn-primary" role="button" href="addpet.html">Add Pet</a></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4"><a class="btn btn-primary" role="button" href="startsetup.html">Setup Your Device!</a></div>
+            <div class="col-md-4"><a class="btn btn-primary" role="button" href="startdevice.html">Start Your Device!</a></div>
+            <div class="col-md-4"><a class="btn btn-primary" role="button" href="data.html">View Your Pet's Data!</a></div>
+        </div>
+    </div><div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Pet Name</th>
+                <th>Pet Age</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for line in myPets %}
+            <tr>
+                <td>{{line["petname"]}}</td>
+                <td>{{line["petage"]}}</td>
+            </tr>
+            <tr></tr>
+        </tbody>
+    </table>
+</div>
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>
