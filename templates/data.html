@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Kibble Kounter</title>
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+</head>
+
+<body>
+    <h1>Kibble Kounter</h1><div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Pet Name</th>
+                <th>Pet Age</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for line in myPets %}
+            <tr>
+                <td>{{line["Pet Name"]}}</td>
+                <td>{{line["Pet Age"]}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+    <form method="post"><label class="form-label">Input pet whose data you want to view. Select the times you want to view the data. Click "View".</label>
+        <div class="input-group"><input class="form-control form-control" type="text" name="p_name"><select class="form-select" name="range">
+                <optgroup label="Select Range of Time">
+                    <option value="12">1 day</option>
+                    <option value="13">1 week</option>
+                    <option value="14">1 month</option>
+                    <option value="15">All</option>
+                </optgroup>
+            </select><button class="btn btn-primary" type="submit">View</button></div>
+    </form><div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Water Percent</th>
+                <th>Food Percent</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for line in myData %}
+            <tr>
+                <td>{{line["time"]}}</td>
+                <td>{{line["water_percent"]}}</td>
+                <td>{{line["weight_percent"]}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+    <div class="col"><a class="btn btn-primary" role="button" href="home">Back to Home</a></div>
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

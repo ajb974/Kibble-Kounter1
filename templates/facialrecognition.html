@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Kibble Kounter</title>
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+</head>
+
+<body>
+    <h1>Kibble Kounter</h1>
+    <p><em>Instructions for Setting Up Facial Recognition for Your Pet</em></p><div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Pet Name</th>
+                <th>Pet Age</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for line in myPets %}
+            <tr>
+                <td>{{line['Pet Name']}}</td>
+                <td>{{line['Pet Age']}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+    <div class="col">
+        <p>Click on the following link:&nbsp;<a href="https://teachablemachine.withgoogle.com/">Teachable Machine</a>. This will take you to a website. On the website, perform the instructions shown below.&nbsp;</p>
+    </div>
+    <div class="col">
+        <ol>
+            <li>Click the “Get Started” button.</li>
+            <li>Select the “Image Project” option.</li>
+            <li>Select “Standard Image Model”.</li>
+            <li>Rename “Class 1” with "None". This represents the pictures you took without your pet.</li>
+            <li>Rename "Class 2" with "[Insert Pet's Name From the Table Above]".&nbsp;(If you have more than one pet, continue this for each pet with Class 3, Class 4, etc.).</li>
+            <li>For each class that you just renamed:&nbsp;Click on “Upload”. Drag and drop the corresponding folders that you downloaded from the previous page where you took photos..</li>
+            <li>Once you are done uploading all the previously taken pictures. Click on train model.</li>
+            <li>Once the training is complete, click on export model.&nbsp; </li>
+            <li>Click on "Tensorflow Lite". Select the "Floating point" option and click on "Download my model."&nbsp;</li>
+            <li>This will give you two files. One labeled "labels.txt" and the other "model_unquant.tflite". Chose those files and click "Submit".&nbsp;</li>
+        </ol>
+    </div>
+    <div class="col">
+        <form method="post"><input class="form-control" type="file" name="file" multiple=""><input class="btn btn-primary" type="submit"></form>
+    </div>
+    <script src="../assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>
