@@ -51,6 +51,7 @@ def measureDistance():
 
     if GPIO.input(GPIO_ECHO) == 1:
         StopTime = time.time()
+        break
     timeout=time.time()-CurrTime
 
   #time difference between start and arrival
