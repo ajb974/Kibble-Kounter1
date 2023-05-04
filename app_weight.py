@@ -102,6 +102,7 @@ def save_reading(pet_name):
             curr_food_bowl=test_food
         else:
             if is_eating:
+                print("save1")
                 is_eating=False
                 now=datetime.now()
                 dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
@@ -113,6 +114,7 @@ def save_reading(pet_name):
                     writer = csv.writer(file)
                     writer.writerow([str(curr_water_percent), str(curr_food_percent), dt_string, pet_name])
                     #writer.writerow([str(cur_water_present), str(curr_food_present), curr_prediction[0], curr_prediction[1], dt_string])
+                    print("save2")
 
 
 '''
