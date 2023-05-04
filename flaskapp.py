@@ -131,6 +131,7 @@ def start_device():
     if request.method=="POST":
         petname=request.form['p_name']
         #pets name is used to start device ????????? ARIN
+        app_weight.start_device(petname)
         return redirect("/home")
     with open(petlist, 'r') as f:
         dict_reader = DictReader(f)
