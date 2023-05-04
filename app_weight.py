@@ -128,24 +128,28 @@ def save_reading1(pet_name):
             if ((curr_food_bowl-TOL_FOOD) <= test_food <= (curr_food_bowl+TOL_FOOD)):
                 return False
         return True
-
+    
     while True:
         test_water=queue_water.get()
         test_food=queue_weight.get()
-       
-        print("save1")
-        is_eating=False
-        now=datetime.now()
-        dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-        curr_water_percent=(full_water_bowl/curr_water_bowl)*100
-        curr_food_percent=(full_food_bowl/curr_food_bowl)*100
-        #curr_prediction = camera_prediction()
-        pet_file=pet_name+".csv"
-        with open(pet_file, 'a', newline='') as file:
-            writer = csv.writer(file)
-            writer.writerow([str(curr_water_percent), str(curr_food_percent), dt_string, pet_name])
-            #writer.writerow([str(cur_water_present), str(curr_food_present), curr_prediction[0], curr_prediction[1], dt_string])
-            print("save2")
+        is_eating=test_reading()
+        if is_eating==False:
+            curr_water_bowl=test_water
+            curr_food_bowl=test_food
+            
+            
+            is_eating=False
+            now=datetime.now()
+            dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+            curr_water_percent=(full_water_bowl/curr_water_bowl)*100
+            curr_food_percent=(full_food_bowl/curr_food_bowl)*100
+            #curr_prediction = camera_prediction()
+            pet_file=pet_name+".csv"
+            with open(pet_file, 'a', newline='') as file:
+                writer = csv.writer(file)
+                writer.writerow([str(curr_water_percent), str(curr_food_percent), dt_string, pet_name])
+                #writer.writerow([str(cur_water_present), str(curr_food_present), curr_prediction[0], curr_prediction[1], dt_string])
+
 
 '''
 def camera_prediction():
