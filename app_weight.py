@@ -12,6 +12,8 @@ import os
 
 TOL_WATER=5
 TOL_FOOD=10 #tolerance for food and water to trigger change
+FOLDER_NAME="pets"
+DATA_FILE="pet_data.csv"
 empty_water_bowl=None
 #curr_water_bowl=None
 full_water_bowl=None
@@ -19,8 +21,9 @@ full_water_bowl=None
 full_food_bowl=None
 
 queue_water=Queue()
+lock_water=Lock()
 queue_weight=Queue()
-
+lock_weight=Lock()
 
 camera = kk.setupCamera()
 file_number = 0
@@ -36,7 +39,7 @@ def make_folder(folder_name):
 def first_setup(DATA_FILE):
     with open(DATA_FILE, 'w', newline='') as file:
         writer = csv.writer(file)
-        field = ["water_percent", "weight_percent", "time"]
+        field = ["water_percent", "weight_percent", "time","pet"]
         #field = ["water_precent", "weight_precent", "predicted_name", "predicted_idx", "time"]
         writer.writerow(field)
 
@@ -64,16 +67,18 @@ def test_sensors():
 
 def read_weight():
     while True:
-        queue_weight.put(kk.readScale_grams())
+        with lock_weight:
+            queue_weight.put(kk.readScale_grams())
         time.sleep(1)
 
 def read_water():
     while True:
-        queue_water.put(kk.measureDistance())
+        with lock_water:
+            queue_water.put(kk.measureDistance())
         time.sleep(1)
 
 
-def save_reading():
+def save_reading(pet_name):
     curr_water_bowl=full_water_bowl
     curr_food_bowl=full_food_bowl
     test_water=None
@@ -103,7 +108,7 @@ def save_reading():
                 #curr_prediction = camera_prediction()
                 with open(DATA_FILE, 'a', newline='') as file:
                     writer = csv.writer(file)
-                    writer.writerow([str(curr_water_percent), str(curr_food_percent), dt_string])
+                    writer.writerow([str(curr_water_percent), str(curr_food_percent), dt_string, pet_name])
                     #writer.writerow([str(cur_water_present), str(curr_food_present), curr_prediction[0], curr_prediction[1], dt_string])
 '''
 def camera_prediction():
@@ -114,3 +119,11 @@ def camera_prediction():
      s = [name, str(idx)]
      return s
 '''
+def start_device(pet_name):
+    weight_thread=Thread(target=read_weight)
+    water_thread=Thread(target=read_water)
+    reading_thread=Thread(target=save_reading,args=(pet_name))
+    weight_thread.start()
+    water_thread.start()
+    reading_thread.start()
+
