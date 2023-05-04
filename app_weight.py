@@ -26,7 +26,7 @@ lock_water=Lock()
 queue_weight=Queue()
 lock_weight=Lock()
 
-camera = kk.setupCamera()
+#camera = kk.setupCamera()
 file_number = 0
 
 #tm = TeachableMachineTF()
@@ -96,7 +96,7 @@ def save_reading(pet_name):
         test_water=queue_water.get()
         test_food=queue_weight.get()
         if (test_reading()):
-            event_camera.set()
+            #event_camera.set()
             is_eating=True
             curr_water_bowl=test_water
             curr_food_bowl=test_food
