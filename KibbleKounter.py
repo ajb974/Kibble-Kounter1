@@ -58,7 +58,7 @@ def measureDistance():
   TimeElapsed = StopTime - StartTime
   distance = (TimeElapsed * 34300) / 2 #in cm
   if timeout>10:
-      return -1
+      return distance
   return distance
 
 def setupCamera():
