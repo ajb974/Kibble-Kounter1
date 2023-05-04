@@ -150,10 +150,11 @@ def save_reading1(pet_name):
                 curr_food_percent=0
             #curr_prediction = camera_prediction()
             pet_file=pet_name+".csv"
-            with open(pet_file, 'a', newline='') as file:
-                writer = csv.writer(file)
-                writer.writerow([str(curr_water_percent), str(curr_food_percent), dt_string, pet_name])
-                #writer.writerow([str(cur_water_present), str(curr_food_present), curr_prediction[0], curr_prediction[1], dt_string])
+            with lock_csv:
+                with open(pet_file, 'a', newline='') as file:
+                    writer = csv.writer(file)
+                    writer.writerow([str(curr_water_percent), str(curr_food_percent), dt_string, pet_name])
+                    #writer.writerow([str(cur_water_present), str(curr_food_present), curr_prediction[0], curr_prediction[1], dt_string])
 
 
 '''
