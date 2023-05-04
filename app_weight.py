@@ -142,10 +142,10 @@ def save_reading1(pet_name):
         #curr_prediction = camera_prediction()
         pet_file=pet_name+".csv"
         with open(pet_file, 'a', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow([str(curr_water_percent), str(curr_food_percent), dt_string, pet_name])
-        #writer.writerow([str(cur_water_present), str(curr_food_present), curr_prediction[0], curr_prediction[1], dt_string])
-        print("save2")
+            writer = csv.writer(file)
+            writer.writerow([str(curr_water_percent), str(curr_food_percent), dt_string, pet_name])
+            #writer.writerow([str(cur_water_present), str(curr_food_present), curr_prediction[0], curr_prediction[1], dt_string])
+            print("save2")
 
 '''
 def camera_prediction():
@@ -160,7 +160,7 @@ def camera_prediction():
 def start_device(pet_name):
     weight_thread=Thread(target=read_weight)
     water_thread=Thread(target=read_water)
-    reading_thread=Thread(target=save_reading,args=[pet_name])
+    reading_thread=Thread(target=save_reading1,args=[pet_name])
     weight_thread.start()
     water_thread.start()
     reading_thread.start()
