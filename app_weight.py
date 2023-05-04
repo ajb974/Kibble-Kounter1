@@ -142,8 +142,16 @@ def save_reading1(pet_name):
             #is_eating=False
             now=datetime.now()
             dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-            curr_water_percent=round(((full_water_bowl/curr_water_bowl)*100),2)
-            curr_food_percent=round(((full_food_bowl/curr_food_bowl)*100),2)
+            if curr_water_bowl==0:
+                curr_water_percent=0
+            else:
+                curr_water_percent=round(((full_water_bowl/curr_water_bowl)*100),2)
+
+            if curr_food_bowl==0:
+                curr_food_percent=0
+            else:
+                curr_food_percent=round(((full_food_bowl/curr_food_bowl)*100),2)
+            
             if curr_water_percent<0:
                 curr_water_percent=0
             if curr_food_percent<0:
