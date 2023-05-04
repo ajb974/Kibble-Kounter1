@@ -9,6 +9,7 @@ import csv
 #import cv2
 import numpy as np
 import os
+#from random import randint
 
 TOL_WATER=5
 TOL_FOOD=10 #tolerance for food and water to trigger change
@@ -76,6 +77,7 @@ def read_water():
         with lock_water:
             queue_water.put(kk.measureDistance())
         time.sleep(1)
+
 
 
 def save_reading(pet_name):
