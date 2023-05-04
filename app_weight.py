@@ -124,7 +124,7 @@ def camera_prediction():
 def start_device(pet_name):
     weight_thread=Thread(target=read_weight)
     water_thread=Thread(target=read_water)
-    reading_thread=Thread(target=save_reading,args=(pet_name))
+    reading_thread=Thread(target=save_reading,args=[pet_name])
     weight_thread.start()
     water_thread.start()
     reading_thread.start()
