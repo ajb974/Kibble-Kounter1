@@ -11,8 +11,8 @@ import numpy as np
 import os
 #from random import randint
 
-TOL_WATER=5
-TOL_FOOD=10 #tolerance for food and water to trigger change
+TOL_WATER=1
+TOL_FOOD=1 #tolerance for food and water to trigger change
 FOLDER_NAME="pets"
 DATA_FILE="pet_data.csv"
 empty_water_bowl=None
