@@ -2,7 +2,7 @@ import KibbleKounter as kk
 from threading import Thread, Lock, Event
 from queue import Queue
 import time
-import datetime
+from datetime import datetime
 import csv
 #from teachablemachinepython import tmlib
 #from  tmblib import *
