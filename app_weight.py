@@ -108,40 +108,8 @@ def save_reading(pet_name):
                 curr_water_percent=(full_water_bowl/curr_water_bowl)*100
                 curr_food_percent=(full_food_bowl/curr_food_bowl)*100
                 #curr_prediction = camera_prediction()
-                with open(DATA_FILE, 'a', newline='') as file:
-                    writer = csv.writer(file)
-                    writer.writerow([str(curr_water_percent), str(curr_food_percent), dt_string, pet_name])
-                    #writer.writerow([str(cur_water_present), str(curr_food_present), curr_prediction[0], curr_prediction[1], dt_string])
-
-def save_reading1(pet_name):
-    curr_water_bowl=full_water_bowl
-    curr_food_bowl=full_food_bowl
-    test_water=None
-    test_food=None
-    is_eating=False
-    def test_reading():
-        if ((curr_water_bowl-TOL_WATER) <= test_water <= (curr_water_bowl+TOL_WATER)):
-            if ((curr_food_bowl-TOL_FOOD) <= test_food <= (curr_food_bowl+TOL_FOOD)):
-                return False
-        return True
-
-    while True:
-        test_water=queue_water.get()
-        test_food=queue_weight.get()
-        if (test_reading()):
-            #event_camera.set()
-            is_eating=True
-            curr_water_bowl=test_water
-            curr_food_bowl=test_food
-        else:
-            if is_eating:
-                is_eating=False
-                now=datetime.now()
-                dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-                curr_water_percent=(full_water_bowl/curr_water_bowl)*100
-                curr_food_percent=(full_food_bowl/curr_food_bowl)*100
-                #curr_prediction = camera_prediction()
-                with open(DATA_FILE, 'a', newline='') as file:
+                pet_file=pet_name+".csv"
+                with open(pet_file, 'a', newline='') as file:
                     writer = csv.writer(file)
                     writer.writerow([str(curr_water_percent), str(curr_food_percent), dt_string, pet_name])
                     #writer.writerow([str(cur_water_present), str(curr_food_present), curr_prediction[0], curr_prediction[1], dt_string])
@@ -160,7 +128,7 @@ def camera_prediction():
 def start_device(pet_name):
     weight_thread=Thread(target=read_weight)
     water_thread=Thread(target=read_water)
-    reading_thread=Thread(target=save_reading1,args=[pet_name])
+    reading_thread=Thread(target=save_reading,args=[pet_name])
     weight_thread.start()
     water_thread.start()
     reading_thread.start()
