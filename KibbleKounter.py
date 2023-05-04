@@ -80,7 +80,7 @@ def readScale_raw():
     return data #returns list of readings
 def zeroScale():
     global hx,ZeroValue
-    hx=HX711(dout_pin=DataPin, pd_sck_pin=ClockPin, gain=64, channel='A')
+    hx=HX711(dout_pin=DataPin, pd_sck_pin=ClockPin, gain=128, channel='A')
     resetScale()
     data = readScale_raw()
     ZeroValue=statistics.median(data) #take median of list of readings
