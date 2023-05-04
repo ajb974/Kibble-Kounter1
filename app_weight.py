@@ -145,8 +145,8 @@ def save_reading1(pet_name):
             curr_food_percent=round(((full_food_bowl/curr_food_bowl)*100),2)
             if curr_water_percent<0:
                 curr_water_percent=0
-            if curr_water_percent<0:
-                curr_water_percent=0
+            if curr_food_percent<0:
+                curr_food_percent=0
             #curr_prediction = camera_prediction()
             pet_file=pet_name+".csv"
             with open(pet_file, 'a', newline='') as file:
