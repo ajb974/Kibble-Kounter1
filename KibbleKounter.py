@@ -55,6 +55,8 @@ def measureDistance():
   #time difference between start and arrival
   TimeElapsed = StopTime - StartTime
   distance = (TimeElapsed * 34300) / 2 #in cm
+  if time.time()-CurrTime>10:
+      return -1
   return distance
 
 def setupCamera():
