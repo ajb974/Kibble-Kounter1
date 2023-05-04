@@ -104,8 +104,9 @@ def start_set_up():
         DATA_FILE = petname+".csv"
         app_weight.make_folder(petname)
         #petname can eventually be used to determine which sensors to zero in the following line
+        print("hello1")
         app_weight.zero_sensors()
-        print("hello")
+        print("hello2")
         return redirect("/finishsetup")
     with open(petlist, 'r') as f:
         dict_reader = DictReader(f)
