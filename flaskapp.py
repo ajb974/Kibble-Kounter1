@@ -13,10 +13,16 @@ from werkzeug.utils import secure_filename
 #pet name and aged are saved in CSV file
 petlist = "pets.csv"
 
-with open(petlist, 'w', newline='') as file:
-        writer = csv.writer(file)
-        field = ["Pet Name", "Pet Age"]
-        writer.writerow(field)
+path = './pets.csv'
+check = os.path.isfile(path)
+
+if check == True:
+	pass
+else:
+	with open(petlist, 'w', newline='') as file:
+        	writer = csv.writer(file)
+        	field = ["Pet Name", "Pet Age"]
+        	writer.writerow(field)
 
 app = Flask(__name__, static_folder='assets')
 
