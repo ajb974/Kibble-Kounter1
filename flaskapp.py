@@ -102,7 +102,7 @@ def start_set_up():
     if request.method=="POST":
         petname=request.form['p_name']
         DATA_FILE = petname+".csv"
-        app_weight.make_folder(DATA_FILE)
+        app_weight.make_folder(petname)
         #petname can eventually be used to determine which sensors to zero in the following line
         app_weight.zero_sensors()
         return redirect("/finishsetup")
