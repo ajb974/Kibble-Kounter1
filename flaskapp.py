@@ -152,9 +152,10 @@ def data():
         time_range=request.form['range']
 
         #files can be obtained this way: directly from the pets bowl data without facial recognition:
-        with open(petname+".csv", 'r') as f:
-            dict_reader = DictReader(f)
-            list_of_dict = list(dict_reader) 
+        with app_weight.lock_csv:
+            with open(petname+".csv", 'r') as f:
+                dict_reader = DictReader(f)
+                list_of_dict = list(dict_reader) 
 
         #files can be obtained a second way: parse through all bowls and see which one predicted pet with facial recognition:
         """ list_of_dict0 = []

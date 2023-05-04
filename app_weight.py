@@ -80,7 +80,7 @@ def read_water():
         time.sleep(1)
 
 
-
+""" 
 def save_reading(pet_name):
     curr_water_bowl=full_water_bowl
     curr_food_bowl=full_food_bowl
@@ -116,7 +116,7 @@ def save_reading(pet_name):
                         writer.writerow([str(curr_water_percent), str(curr_food_percent), dt_string, pet_name])
                         #writer.writerow([str(cur_water_present), str(curr_food_present), curr_prediction[0], curr_prediction[1], dt_string])
                         
-
+ """
 
 def save_reading1(pet_name):
     curr_water_bowl=full_water_bowl
@@ -134,7 +134,7 @@ def save_reading1(pet_name):
         test_water=queue_water.get()
         test_food=queue_weight.get()
         is_eating=True
-        if is_eating==True:
+        if True:
             curr_water_bowl=test_water
             curr_food_bowl=test_food
             
