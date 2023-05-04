@@ -25,6 +25,7 @@ queue_water=Queue()
 lock_water=Lock()
 queue_weight=Queue()
 lock_weight=Lock()
+lock_csv=Lock()
 
 #camera = kk.setupCamera()
 file_number = 0
@@ -102,19 +103,19 @@ def save_reading(pet_name):
             curr_food_bowl=test_food
         else:
             if is_eating:
-                print("save1")
-                is_eating=False
+                #is_eating=False
                 now=datetime.now()
                 dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
                 curr_water_percent=(full_water_bowl/curr_water_bowl)*100
                 curr_food_percent=(full_food_bowl/curr_food_bowl)*100
                 #curr_prediction = camera_prediction()
                 pet_file=pet_name+".csv"
-                with open(pet_file, 'a', newline='') as file:
-                    writer = csv.writer(file)
-                    writer.writerow([str(curr_water_percent), str(curr_food_percent), dt_string, pet_name])
-                    #writer.writerow([str(cur_water_present), str(curr_food_present), curr_prediction[0], curr_prediction[1], dt_string])
-                    print("save2")
+                with lock_csv:
+                    with open(pet_file, 'a', newline='') as file:
+                        writer = csv.writer(file)
+                        writer.writerow([str(curr_water_percent), str(curr_food_percent), dt_string, pet_name])
+                        #writer.writerow([str(cur_water_present), str(curr_food_present), curr_prediction[0], curr_prediction[1], dt_string])
+                        
 
 
 def save_reading1(pet_name):
