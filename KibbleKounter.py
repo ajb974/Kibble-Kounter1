@@ -34,31 +34,19 @@ def measureDistance():
   GPIO.setmode(GPIO.BCM)
   setupProximitySensor()
   GPIO.output(GPIO_TRIGGER, True)
-
   #set trigger after 0.01 ms to LOW
   time.sleep(0.00001)
   GPIO.output(GPIO_TRIGGER, False)
-
- 
   StartTime = time.time()
   StopTime = time.time()
-  CurrTime = StartTime
-  timeout=time.time()-CurrTime
-  while timeout<10:
   #save StartTime
-    if GPIO.input(GPIO_ECHO) == 0:
-        StartTime = time.time()
-
-    if GPIO.input(GPIO_ECHO) == 1:
-        StopTime = time.time()
-        break
-    timeout=time.time()-CurrTime
-
+  while GPIO.input(GPIO_ECHO) == 0:
+   StartTime = time.time()
+  while GPIO.input(GPIO_ECHO) == 1:
+   StopTime = time.time()
   #time difference between start and arrival
   TimeElapsed = StopTime - StartTime
   distance = (TimeElapsed * 34300) / 2 #in cm
-  if timeout>10:
-      return distance
   return distance
 
 def setupCamera():
