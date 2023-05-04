@@ -105,6 +105,7 @@ def start_set_up():
         app_weight.make_folder(petname)
         #petname can eventually be used to determine which sensors to zero in the following line
         app_weight.zero_sensors()
+        print("hello")
         return redirect("/finishsetup")
     with open(petlist, 'r') as f:
         dict_reader = DictReader(f)
