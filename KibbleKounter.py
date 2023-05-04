@@ -8,7 +8,7 @@ import statistics
 camera = None
 DataPin = 23
 ClockPin = 24
-NumReadings = 10
+NumReadings = 50
 hx = None
 ZeroValue=None
 TestValue=None #difference in scale value after weight is put on
