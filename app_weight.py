@@ -132,7 +132,7 @@ def save_reading1(pet_name):
     while True:
         test_water=queue_water.get()
         test_food=queue_weight.get()
-        is_eating=test_reading()
+        is_eating=True
         if is_eating==True:
             curr_water_bowl=test_water
             curr_food_bowl=test_food
