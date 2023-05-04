@@ -138,7 +138,7 @@ def save_reading1(pet_name):
             curr_food_bowl=test_food
             
             
-            is_eating=False
+            #is_eating=False
             now=datetime.now()
             dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
             curr_water_percent=round(((full_water_bowl/curr_water_bowl)*100),2)
