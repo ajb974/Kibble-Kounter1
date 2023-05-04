@@ -46,10 +46,10 @@ def measureDistance():
 
   while time.time()-CurrTime<10:
   #save StartTime
-    while GPIO.input(GPIO_ECHO) == 0:
+    if GPIO.input(GPIO_ECHO) == 0:
         StartTime = time.time()
 
-    while GPIO.input(GPIO_ECHO) == 1:
+    if GPIO.input(GPIO_ECHO) == 1:
         StopTime = time.time()
 
   #time difference between start and arrival
