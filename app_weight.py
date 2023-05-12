@@ -11,6 +11,7 @@ import numpy as np
 import os
 #from random import randint
 
+
 TOL_WATER=0
 TOL_FOOD=0 #tolerance for food and water to trigger change
 FOLDER_NAME="pets"
