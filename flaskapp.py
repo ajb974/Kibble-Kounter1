@@ -47,7 +47,7 @@ def add_pet():
         with open(petlist, 'a', newline='') as file:
             writer = csv.writer(file)
             writer.writerow([petname, petage])
-        return redirect("/home")
+        return redirect("/addpet")
     return render_template("addpet.html")
 
 #function for taking photos
@@ -79,16 +79,22 @@ def download():
 
 
 app.config["UPLOAD_FOLDER"] = '/home/pi/Kibble-Kounter1/teachablemachinepython/tflite_model/'
+allowed_extensions = set(['txt', 'tflite'])
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.',1)[1].lower() in allowed_extensions
+
 
 #function for facial recognition
 @app.route("/facialrecognition", methods=['POST','GET'])
 def facial_recognition():
     if request.method=="POST":
-        uploaded_files = flask.request.files.getlist("file")
-        for file in uploaded_files:
-            filename = secure_filename(file.filename)
-            file.save(app.config['UPLOAD_FOLDER']+filename)
-            #file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        f = request.files.getlist('file[]')
+        for file in f:
+            if file and allowed_file(file.filename):
+                print(file.filename)
+                filename = secure_filename(file.filename)
+                print(filename)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         return redirect("/home") 
     with open(petlist, 'r') as f:
             dict_reader = DictReader(f)
@@ -103,7 +109,6 @@ def start_set_up():
         petname=request.form['p_name']
         DATA_FILE = petname+".csv"
         app_weight.first_setup(DATA_FILE)
-        app_weight.make_folder(petname)
         #petname can eventually be used to determine which sensors to zero in the following line
         print("hello1")
         app_weight.zero_sensors()
