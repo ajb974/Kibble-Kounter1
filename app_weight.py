@@ -35,6 +35,10 @@ file_number = 0
 
 #function for making folders to store pictures in (e.g. for camera_training)
 def make_folder(folder_name):
+   path = '/home/pi/Desktop/pictures'
+   check =  os.path.isdir(path)
+   if check == False:
+       os.mkdir('/home/pi/Desktop/pictures')
    os.mkdir('/home/pi/Desktop/pictures/%s' % folder_name)
 
 

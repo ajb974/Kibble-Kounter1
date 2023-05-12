@@ -56,10 +56,10 @@ def take_photos():
     if request.method=="POST":
         petname=request.form['p_name']
         app_weight.make_folder(petname)
-        for i in range (0,29,1):
-            app_weight.camera_training(petname, False)
-            time.sleep(2)
-        app_weight.camera_training(petname, True)
+        #for i in range (0,29,1):
+           # app_weight.camera_training(petname, False)
+            #time.sleep(2)
+        #app_weight.camera_training(petname, True)
         return redirect("/takephotos")
     with open(petlist, 'r') as f:
         dict_reader = DictReader(f)
