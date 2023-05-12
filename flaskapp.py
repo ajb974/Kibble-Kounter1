@@ -69,14 +69,17 @@ def take_photos():
 #function for downloading photos
 @app.route("/download")
 def download():
-    target = '/home/pi/Desktop/Pictures'
+    target = '/home/pi/Desktop/pictures'
+    print("done")
     stream = BytesIO()
     with ZipFile(stream, "w") as zf:
-        for file in glob(os.path.join(target, '*.sql')):
-            zf.write(file, os.path.basename(file))
-            stream.seek(0)
-    return send_file(stream, as_attachment=True, downloaded_name='pictures.zip')
-
+       # for file in glob(os.path.join(target, '*')):
+         print("hello")
+         zf.write(file, os.path.basename(file))
+         print("helloagain")
+    stream.seek(0)
+   # return send_file(stream, as_attachment=True, attachment_filename='pictures.zip')
+    return send_file('pets.csv', as_attachment=True)
 
 app.config["UPLOAD_FOLDER"] = '/home/pi/Kibble-Kounter1/teachablemachinepython/tflite_model/'
 
