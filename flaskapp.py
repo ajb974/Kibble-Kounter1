@@ -75,7 +75,7 @@ def download():
         for file in glob(os.path.join(target, '*.sql')):
             zf.write(file, os.path.basename(file))
             stream.seek(0)
-    return send_file(stream, as_attachment=True, download_name='pictures.zip')
+    return send_file(stream, as_attachment=True, downloaded_name='pictures.zip')
 
 
 app.config["UPLOAD_FOLDER"] = '/home/pi/Kibble-Kounter1/teachablemachinepython/tflite_model/'
