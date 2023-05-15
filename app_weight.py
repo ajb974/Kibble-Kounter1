@@ -35,16 +35,11 @@ file_number = 0
 #tm.load('/home/pi/Kibble-Kounter1/teachablemachinepython/tflite_model/model_unquant.tfile','/home/pi/Kibble-Kounter1/teachablemachinepython/tflite_model/labels.txt')
 
 #function for making folders to store pictures in (e.g. for camera_training)
-path = '/home/pi/Desktop/pictures'
-check =  os.path.isdir(path)
-if check == False:
-   os.mkdir('/home/pi/Desktop/pictures')
-   
 def make_folder(folder_name):
-#    path = '/home/pi/Desktop/pictures'
-#    check =  os.path.isdir(path)
-#    if check == False:
-#        os.mkdir('/home/pi/Desktop/pictures')
+   path = '/home/pi/Desktop/pictures'
+   check =  os.path.isdir(path)
+   if check == False:
+       os.mkdir('/home/pi/Desktop/pictures')
    os.mkdir('/home/pi/Desktop/pictures/%s' % folder_name)
 
 
